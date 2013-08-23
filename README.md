@@ -7,7 +7,11 @@ Running will serve static files from example directory. Calling localhost:{port}
 
 Or just copy server.jar to directory you want to use as source of xml files(e.g. example/) and do
 
-    java -jar example/server.jar
+    cp server.jar example/
+    cd example
+    java -jar server.jar
+
+By default server document will be the directory from where java -jar server.jar is called. 
 
 Enjoy.
 
