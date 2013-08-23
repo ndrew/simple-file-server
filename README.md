@@ -13,6 +13,10 @@ Or just copy server.jar to directory you want to use as source of xml files(e.g.
 
 By default server document will be the directory from where java -jar server.jar is called. 
 
+Other options that can be provided:
+    --port {port-number} — localhost:{port-number}, default is 8899
+    --[no-]auto-open     — determines whether to open browser on server start
+
 Enjoy.
 
 
