@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>XML testo</title>
+    <meta name="author" content="">
+</head>
+<body>
+<h3>File listing</h3>
+<div id="response"></div>
+<div id="xmls"></div>
+
+<script type="text/javascript">
+
+function renderXML(name, xml) {
+    var root = document.getElementById("xmls");
+    var el = document.createElement("pre");
+    el.appendChild(document.createTextNode(
+        "\n" + name + "\n--------------------------\n" + xml));
+    root.appendChild(el);
+}
+
+function loadXMLs(xmls) {
+    for (var i = xmls.length - 1; i >= 0; i--) {
+        var xml = xmls[i];
+        ajax(xml, function(url, responseText) {
+            renderXML(url, responseText);
+        });
+
+    };
+}
+
+function ajax(url, callback) {
+    var xmlhttp;
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); // code for IE6, IE5
+    }
+
+    var that = this;
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            callback.call(that, url, xmlhttp.responseText);
+        }
+    }
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+}
+
+ajax("/get-xml-files", function(url, responseText) {
+    // just for debug
+    document.getElementById("response").innerHTML = responseText;
+            
+    var xmls = JSON.parse(responseText);
+    loadXMLs(xmls);
+});
+
+</script>   
+
+</body>
+</html>
