@@ -20,13 +20,31 @@ function renderXML(name, xml) {
     root.appendChild(el);
 }
 
+
+function renderButton(url) {
+    var root = document.getElementById("xmls");
+
+        var el = document.createElement("button");
+        el.appendChild(document.createTextNode(url));
+        el.onclick=function() {
+            alert(url);
+            ajax(url, function(url, responseText) {
+                renderXML(url, responseText);
+            });
+
+        }
+        root.appendChild(el);
+
+}
+
+
+
 function loadXMLs(xmls) {
     for (var i = xmls.length - 1; i >= 0; i--) {
         var xml = xmls[i];
-        ajax(xml, function(url, responseText) {
-            renderXML(url, responseText);
-        });
-
+        
+        renderButton(xml);
+        
     };
 }
 
